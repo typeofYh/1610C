@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [1,3,4,5,5] ;
+
+        function insert(arr,index,val){
+            if(arr[index]){
+                arr[index] = [val,arr[index]];
+            }else{
+                arr[index] = val
+            }
+            return arr.flat(Infinity);
+        }
+
+        arr = insert(arr,5,['a','b','c']);
+        //[1,3,[['a','b','c'],4],5,5];
+
+        console.log(arr.map(function(item){
+            return [item,'新增内容']
+        }).flat());
+    </script>
+</body>
+</html>

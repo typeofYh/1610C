@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">按钮</button>
+    <script>
+        
+        // let fun = function(){
+
+        // }
+
+        // let fun1 = (str,n)=>( {
+        //         text:str,
+        //         lenght:n
+        //     } );
+        
+
+        // console.log(fun1('hello',5));
+        let Table = function(){
+            console.log(arguments);
+        }
+        let Person = (...n)=> n.reduce((prev,next)=>prev + next);
+        
+        new Table(10,20,30,40);
+        console.log(Person(10,20,30,40));
+        
+
+        var name = 'window';
+        let sayname = ()=>{
+            //this=>window
+            console.log(this.name);
+        }
+        let obj = {
+            name:'zs',
+            show1:()=>{
+                console.log(this);
+            },
+            show(){
+                //
+                (()=>{
+                    console.log(this.name);
+                })();
+            }
+        };
+        obj.show();
+        // sayname.call(obj);
+
+        //1.不能当作构造函数使用
+        //2.不能使用arguments rest操作符来代替
+        //3.箭头函数不能修改this指向
+        //4.箭头函数的this指向在定义时形成
+
+        let btn = document.querySelector('#btn');
+
+        btn.addEventListener('click',()=>{
+            //window
+            console.log('箭头函数'+this.innerHTML);
+        })
+        btn.addEventListener('click',function(){
+            //btn
+            console.log('普通函数'+this.innerHTML);
+        })
+
+    </script>
+</body>
+</html>

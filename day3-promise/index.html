@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrap">
+        <div>
+            <div class="title">
+                <ul>
+                    <li class="title"></li>
+                </ul>
+            </div>
+            <span>
+                <b class="title"></b>
+            </span>
+        </div>
+        <p></p>
+    </div>
+    <script>
+        let data = [{
+            src:'https://img.alicdn.com/tps/i4/TB1qCzpF7voK1RjSZFNSuwxMVXa.jpg_q90_.webp',
+            title:'图片1'
+        },{
+            src:'https://aecpm.alicdn.com/simba/img/TB1XotJXQfb_uJkSnhJSuvdDVXa.jpg',
+            title:'图片2'
+        },{
+            src:'https://aecpm.alicdn.com/simba/img/TB1JNHwKFXXXXafXVXXSutbFXXX.jpg',
+            title:'图片3'
+        }]
+        function getImage(url){
+            return new Promise((resolve,reject)=>{
+                //resolve是成功执行的操作
+                //reject是失败执行的操作
+                const img = new Image();
+                img.onload = ()=>{
+                    resolve(img) 
+                }
+                img.onerror = ()=>{
+                    reject(`找不到图片`)
+                }
+                img.src = url;
+            });
+        }
+        
+        
+        Promise.all(data.map(item=>getImage(item.src))).then((arr)=>{
+            arr.forEach(item=>{
+                document.body.appendChild(item);
+            })
+        })
+
+        //PromiseObject.then(resolve,reject)
+        //PromiseObject.catch() 捕捉异常
+        //Promise.all([])   
+        //所有的promis加载成功执行resolve
+        //返回一个promise对象
+
+
+        // function ajax(){
+        //     return new Promise()
+        // }
+        // //图片轮播
+        // function Banner(data){
+
+        // }
+        // ajax('/api/banner').then((data)=>{
+        //     new Banner(data);
+        // })
+
+
+         function find(classname,parent=document){
+             const child = [];
+             let findchild = (parent)=>{
+                const childes = Array.from(parent.children);
+                if(childes.length){
+                    childes.map(item=>{
+                        if(item.classList.contains(classname)){
+                            child.push(item);
+                        }
+                        findchild(item);
+                    })
+                }
+             }
+             findchild(parent);
+             return child;
+         }
+         console.log(find('title',document.querySelector('#wrap')));
+
+
+         Array.prototype.inArray = function(){
+             console.log(this);
+         }
+
+         let arr = [];
+         arr.inArray();
+    </script>
+</body>
+</html>

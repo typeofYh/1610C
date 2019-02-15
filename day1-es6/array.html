@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   <div>
+       <input type="text"> <button id="search">搜索</button>
+   </div>
+    <script>
+        // let box = Array.from(document.querySelectorAll('div'),function(item){
+        //     item.onclick = function(){
+        //         alert(111);
+        //     }
+        //     return item;
+        // });
+        
+
+        let div = [...document.getElementsByTagName('div')];
+       console.log(div);
+
+       let obj = {
+           0:'abc',
+           1:'123',
+           length:2
+       };
+
+       console.log(Array.from(obj));
+      // console.log([...obj]);
+
+
+      const search = document.querySelector('#search');
+      const text = document.querySelector('input');
+      const data = [{
+          book:'javascript 3.0',
+          name:'黄冈'
+      },{
+          book:'javascript 6.0',
+          name:'阮一峰'
+      },{
+          book:'白夜行',
+          name:'东野圭吾'
+      },{
+          book:'鬼吹灯',
+          name:'天下霸唱'
+      }];
+
+      search.onclick = function(){
+         let val = text.value.trim();
+         ///val/
+         let reg = new RegExp(val);
+         console.log(data.findIndex(function(item,index,array){
+            return reg.test(item.book) || reg.test(item.name);
+         }));
+      }
+
+
+      let arr = Array.of(10,2,30,2213);
+      console.log(arr);
+
+      let arr1 = ['a','b','c','d','e','f'];
+      //['a','b','a','b','c','d'];
+
+      arr1.copyWithin(2);
+
+
+
+      let arr2 = [1,2,3,4];
+      let arr2Iter = arr2.entries();
+    //   console.log(arr2Iter.next());
+    //   console.log(arr2Iter.next());
+    //   console.log(arr2Iter.next());
+    //   console.log(arr2Iter.next());
+    //   console.log(arr2Iter.next());
+
+      for(let val of arr2Iter){
+          console.log(val);
+      }
+
+      
+    </script>
+</body>
+</html>

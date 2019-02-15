@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div class="swiper-container" id="container">
+            <div class="swiper-wrapper">
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/ajax.js"></script>
+    <script src="./js/banner.js"></script>
+    <script>
+        ajax.get('http://localhost:8081').then((data)=>{
+            new Banner('#container',data)
+        },(mes)=>{
+            console.log(mes);
+        })
+    </script>
+</body>
+</html>

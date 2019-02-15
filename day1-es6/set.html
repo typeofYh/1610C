@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  <script>
+     let setdata = new Set([10,20,30,40,20,10]);
+     setdata.add(60);
+     for(let i of setdata.entries()){
+         console.log(i);
+     }
+
+     let setMap = new Map();
+     setMap.set({classname:"1610C"},'hello')
+     setMap.set(['a','b','c'],['1','2','c'])
+
+     for(let key of setMap.values()){
+         console.log(key);
+     }
+    //  let obj = {
+    //      []:1212
+    //  }
+
+    let arr = ['a','b','c'];
+    function getIterator(arr){
+        let index = 0;
+        return {
+            next:function(){
+                return {
+                    value:arr[index++],
+                    done:index>arr.length
+                }
+            }
+        }
+    }
+
+    let arrIter = getIterator(arr);
+
+    console.log(arrIter.next());  //{value:'a',done:false}
+    console.log(arrIter.next()); 
+    console.log(arrIter.next()); 
+    console.log(arrIter.next()); 
+  </script>
+</body>
+</html>

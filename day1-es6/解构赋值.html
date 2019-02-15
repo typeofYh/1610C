@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //解构赋值
+        //1.从数组和对象中提取值给变量进行赋值
+        // let classname = '1610C';
+        // let num = 40;
+        // let date = '2019-2-12';
+
+        // let [classname='1610C',num=40,date] = [null,'','2019-2-12'];
+        // console.log(classname,num,date);
+
+        // let [username,age,[friend1,friend2]] = ['王璐伟',18,['祁珈劼','李俊豪']]
+        // console.log(username,age,friend1,friend2);
+
+        // let [title,m,...n] = ['求和',10,20,30,31,24,12,44]
+        // console.log(title,m,n);
+        //...rest 操作符
+
+        //对象解构
+        let {
+            classname='1610C', //classname:classname='1610C'
+            num,
+            date
+        } = {
+            num:40,
+            date:new Date().getDate()
+        }
+
+        console.log(classname,num,date);
+
+
+
+        //{key:变量名} = {key:变量值}
+
+        function createElement(obj){
+            let {tag,props,children} =  obj;
+            let node = document.createElement(tag);
+            if(props){
+                Object.keys(props).map(function(item){
+                    node.setAttribute(item,props[item])
+                })
+            }
+            children.map(function(item){
+                let childrenode = null;
+                if(typeof item === 'string'){
+                    childrenode = document.createTextNode(item);
+                }else{
+                    childrenode = createElement(item);
+                }
+                node.appendChild(childrenode);
+            })
+            return node;
+        }
+        console.log(createElement({
+            tag:'div',
+            props:{
+                id:'wrap',
+                classname:'wrap'
+            },
+            children:[{
+                tag:'span',
+                children:['1234']
+            },'hello']
+        }));
+        //<div id="wrap" class="wrap"><span>1234</span>hello</div>
+    </script>
+</body>
+</html>
