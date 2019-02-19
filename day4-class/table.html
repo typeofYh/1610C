@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="box box1">
+        <div class="title">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+        </div>
+        <div class="cont">
+            <div>内容1</div>
+            <div>内容2</div>
+            <div>内容3</div>
+        </div>
+    </div>
+    <div class="box box2">
+        <div class="title">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+        </div>
+        <div class="cont">
+            <div>内容1</div>
+            <div>内容2</div>
+            <div>内容3</div>
+        </div>
+    </div>
+    <script>
+
+        // function Table(opt){
+        //     this.optins = opt;
+        //     this.init();
+        // }
+        // Table.prototype = {
+        //     constructor:Table
+        // }
+        // Table.setStyle = function(){
+
+        // }
+        // new Table({
+        //     tablebox:'.box',
+        //     title:'.title',
+        //     cont:'.cont'
+        // });
+
+        class Table{
+            constructor(opt){
+                this.options = Object.assign({},{
+                    index:0
+                },opt);
+                this.tablebox = this.getDom(this.options.tablebox);
+                this.title = this.getDom(this.options.title,this.tablebox);
+                this.cont = this.getDom(this.options.cont,this.tablebox);
+                this.classname = this.options.classname;
+                this.index = this.options.index;
+                this.init();
+            }
+            init(){
+                this.addEvent(); 
+            }
+            getDom(classname,parent=document){
+                return typeof classname === 'string' ? parent.querySelector(classname) : classname;
+            }
+            addEvent(){
+                this.titletag = [...this.title.children];
+                this.conttag = [...this.cont.children];
+                this.titletag.forEach((item,i)=>{
+                    item.onclick = ()=>{
+                        this.index = i;
+                        this.change();
+                    }
+                })
+                this.change();
+            }
+            change(){
+                this.titletag.forEach((tags,index)=>{
+                    tags.classList.remove(this.classname);
+                    this.conttag[index].classList.remove(this.classname);
+                })
+                this.titletag[this.index].classList.add(this.classname);
+                this.conttag[this.index].classList.add(this.classname);
+            }   
+        }
+        //实例方法
+        new Table({
+            tablebox:'.box1',
+            title:'.title',
+            cont:'.cont',
+            index:0,
+            classname:'active'
+        })
+
+
+        class AutoTable extends Table {
+            constructor(opt){
+                super(opt);
+                this.timer = null;
+                this.autoplay();
+                this.stop();
+            }
+            autoplay(){
+                this.timer = setInterval(()=>{
+                    this.index++;
+                    this.index = this.index % this.titletag.length;
+                    this.change(this.index);
+                },this.options.time);
+            }
+            stop(){
+                this.tablebox.onmouseover = ()=>{
+                    clearInterval(this.timer);
+                }
+                this.tablebox.onmouseout = ()=>{
+                    this.autoplay();
+                }
+            }
+        }
+
+        new AutoTable({
+            tablebox:'.box2',
+            title:'.title',
+            cont:'.cont',
+            index:2,
+            classname:'active',
+            time:1000
+        })
+    </script>
+</body>
+</html>

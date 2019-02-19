@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrap">
+        <p>数量{count}</p>
+        <button>+</button>
+    </div>
+    <script>
+        let btn = document.querySelector('button');
+        const data = {
+            count:10
+        }
+        btn.onclick = function(){
+            data.count++;  //data.count = data.count+1
+        }
+
+
+        function View(data){
+            let el = document.querySelector(data.el);
+            let children = [...el.children];
+            let reg = /{(\w+)}/;
+            children.forEach(item=>{
+                let text = item.innerHTML; //{}
+                if(reg.test(text)){
+                    let title = text.match(reg)[1];
+                    change(title,item,text);
+                    render(item,title)
+                }
+            })
+            function change(title,item,text){
+                let defaultval = data.data[title];
+                Object.defineProperty(data.data,title,{
+                    get(){
+                        return defaultval;
+                    },
+                    set(val){
+                        defaultval = val;
+                        item.innerHTML = text.replace(reg,val);
+                    }
+                })
+            }
+            function render(el,title){
+                el.innerHTML = el.innerHTML.replace(reg,data.data[title]);
+            }
+        }
+        View({
+            el:'.wrap',
+            data
+        })
+    </script>
+</body>
+</html>

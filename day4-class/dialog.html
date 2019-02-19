@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrap"></div>
+    <script>
+
+        class Dialog{
+            constructor(parent,options){
+                this.parent = document.querySelector(parent);
+                let defaulte = {
+                    title:'弹窗标题',
+                    content:['确定'],
+                    style:{
+                        width:200,
+                        height:100,
+                        background:'pink'
+                    }
+                };
+                const style = Object.assign({},defaulte.style,options.style);
+                const settings = Object.assign({},defaulte,options);
+                settings.style = style;
+                this.settings = settings;
+                this.render();
+            }
+            render(){
+                let {title,content,style} = this.settings;
+                let html = `<div class="dialog" style="${Object.entries(style).map(arr=>arr[0]+':'+(typeof arr[1] === 'number' ? arr[1]+'px' : arr[1])).join(';')}">
+                        <h2 class="dialog_title">${title}</h2>
+                        <div class="dialog_btn">
+                            ${content.map((btns,i) =>`<button class="btn${i}">${btns}</button>`).join('')}
+                        </div>
+                    </div>`;
+                this.dialogel = document.createElement('div');
+                this.dialogel.className = 'dialog_mask';
+                this.dialogel.innerHTML = html;
+                this.parent.appendChild(this.dialogel);
+            }
+            on(eventname,ck){
+                switch(eventname){
+                    case 'sure':
+                        let surebtn = this.dialogel.querySelector('.btn0');
+                        surebtn.onclick = ()=>{
+                            ck.call(this,{
+                                target:surebtn,
+                                dialog:this.dialogel
+                            })
+                        }
+                    break;
+                    case 'close':
+                        let closebtn = this.dialogel.querySelector('.btn1');
+                        closebtn.onclick = ()=>{
+                            ck.call(this,{
+                                target:closebtn,
+                                dialog:this.dialogel
+                            })
+                        }
+                    break;
+                }
+            }
+        }
+
+        const dialog = new Dialog('#wrap',{
+            title:'确定要购买吗？',
+            content:['确定','取消'],
+            style:{
+                width:100
+            }
+        });
+
+
+        dialog.on('sure',function(e){
+            window.location.href = "http://172.16.10.111/exam/login.do";
+        })
+        dialog.on('close',function(e){
+            wrap.removeChild(e.dialog);
+        })
+
+        // function DragDialog(){
+        //     Dialog.apply(this,arguments)
+        // }
+        // DragDialog.prototype = Object.create(Dialog.prototype);
+        // DragDialog.prototype.constructor = DragDialog;
+        // DragDialog.prototype.render = 'render';
+        // console.log(Dialog.prototype);
+        // console.log(DragDialog.prototype);
+
+        class DragDialog extends Dialog{
+            constructor(parent,options){
+                super(parent,options);  //在构造函数开始执行super()调用父对象
+                this.move();
+            }
+            move(){
+                let dialog = this.dialogel.querySelector('.dialog');
+                dialog.style.position = 'absolute';
+                dialog.onmousedown = (e)=>{
+                    let {x,y} = {
+                        x:e.clientX - dialog.offsetLeft,
+                        y:e.clientY - dialog.offsetTop
+                    }
+                    document.onmousemove = (e)=>{
+                        let {tops,lefts}= {
+                            lefts:e.clientX - x,
+                            tops:e.clientY - y
+                        };
+                        dialog.style.top = tops+'px';
+                        dialog.style.left = lefts+'px';
+                    }
+                }
+                document.onmouseup = ()=>{
+                    document.onmousemove = null;
+                };
+            }
+        }
+        new DragDialog('#wrap',{
+            content:['确定','取消'],
+            style:{
+                width:100
+            }
+        });
+    </script>
+</body>
+</html>

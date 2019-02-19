@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getnumber(min,max,time){
+            return new Promise((resolve,reject)=>{
+                const n = Math.floor(Math.random()*(max-min+1)+min);
+                setTimeout(()=>{
+                    resolve(n)
+                },time)
+            })
+        }
+        
+        // getnumber(10,20,2000).then(n=>{
+        //     console.log(n);
+        //     console.log('1')
+           
+        // })
+        
+        // getnumber(10,20,1000).then(n=>{
+        //     console.log(n);
+        //     console.log('2')
+        // })
+        
+        //async 
+
+        // async function sum(){
+
+        // }
+
+        let sum = async function(){
+           // await 
+           let n = await getnumber(10,20,2000)
+           let n1 = await getnumber(10,20,1000);
+            return n+n1;
+        }
+
+        sum().then(res=>{
+            console.log(res);
+        })
+        
+        
+
+        // try{
+        //     // throw 'error';
+        //     console.log('hello');
+        // }catch(mes){
+        //     console.log(mes);
+        // }
+
+
+        
+    </script>
+</body>
+</html>
