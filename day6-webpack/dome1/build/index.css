@@ -1,0 +1,18 @@
+div{
+    width: 270px;
+    height: 197px;
+    background-image:url(839d9ad79c6283c40da24824a7ba945a.jpg);
+    background-repeat: no-repeat;
+    animation:  shows 3s infinite steps(44); 
+    font-size: 10px;
+}
+
+@keyframes shows {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: -11880px 0;
+    }
+}
+

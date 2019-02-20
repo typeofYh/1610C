@@ -14,10 +14,11 @@ const config = {
         hot:true,
         // contentBase:path.join(__dirname,'src')
         before(app){
+            app.use(bodyParse.json());
             app.get('/api/list',(req,res,next)=>{
                 res.send({name:'zs'})
             })
-            app.post('/api/login',bodyParse.json(),(req,res,next)=>{
+            app.post('/api/login',(req,res,next)=>{
                 console.log(req.body);
                 res.send({name:'zs'})
             })

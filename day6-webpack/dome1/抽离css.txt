@@ -1,0 +1,12 @@
+1. npm i extract-text-webpack-plugin@next -D
+2. 引入插件
+3. 使用loader解析该模块时调用该插件的extract
+{
+    fallback:返回给插件执行的loader
+    use: 要执行的loader
+}
+
+4.在plugins里调用该插件
+
+
+使用sass-loader 依赖node-sass

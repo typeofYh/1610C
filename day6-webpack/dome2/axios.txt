@@ -1,0 +1,3 @@
+axios 是一个封装好的一个http请求的框架
+
+axios作为浏览器端框架来使用时封装了XMLHttpRequest对象
