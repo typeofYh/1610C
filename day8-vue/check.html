@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .checkbox{
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            padding:0;
+            border:1px solid #eee;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 3px;
+            cursor: pointer;
+        }
+        .checkbox.checked{
+            background: pink
+        }
+        .dialog{
+            width: 200px;
+            height: 200px;
+            background: skyblue;
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-1000%);
+            transition: transform 0.8s; 
+        }
+        .dialog.show{
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(val,index) in list">
+                <span 
+                class="checkbox" 
+                :class="{checked:val.checked}"
+                @click="onecheck(index)"></span><b>{{val.title}}</b>
+            </li>
+        </ul>
+        <div>
+             <span class="checkbox" :class="{checked:allcheck}" @click="allcheckEvent"></span>全选
+        </div>
+
+        <button @click="classname.show=true">从上到下的弹窗</button>
+        <div :class="classname"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                classname:{
+                    dialog:true,
+                    show:false
+                },
+                list:[{
+                    title:'苹果',
+                    checked:false
+                },{
+                    title:'梨', 
+                    checked:false
+                },{
+                    title:'香蕉',
+                    checked:false
+                }],
+                allcheck:false
+            },
+            methods:{
+                onecheck(i){
+                    this.list[i].checked = !this.list[i].checked;
+                    this.allcheck = this.list.every(item=>item.checked);
+                },
+                allcheckEvent(){
+                    this.allcheck = !this.allcheck;
+                    this.list.forEach(item => {
+                        item.checked = this.allcheck
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+</html>

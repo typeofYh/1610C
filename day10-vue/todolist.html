@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .checkbox{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background:#fff;
+            border:1px solid #ccc;
+            vertical-align: middle;
+        }
+        .checked{
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" @keyup.13="submit" v-model="text">
+        <h2>正在进行中 <span>{{ing.length}}</span></h2>
+        <ul>
+            <li v-for="(item,i) in ing">
+                <span 
+                class="checkbox" 
+                :class="{checked:false}"
+                @click="addend(i,'ing')"></span>
+                <b>{{item.text}}</b>
+                <em @click="remove(i,'ing')">-</em>
+            </li>
+        </ul>
+        <h2>已完成 <span>{{end.length}}</span></h2>
+        <ul>
+            <li v-for="(item,i) in end">
+                <span 
+                class="checkbox" 
+                :class="{checked:true}"
+                @click="addend(i,'end')"></span>
+                <b>{{item.text}}</b>
+                <em @click="remove(i,'end')">-</em>
+            </li>
+        </ul>
+        <button @click="clear">clear</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                text:"",
+                ing:[],
+                end:[]
+            },
+            methods:{
+                submit(){
+                    if(this.text !== ''){
+                        this.ing.unshift({
+                            text:this.text
+                        })
+                    }
+                    this.text = '';
+                },
+                addend(index,type){
+                    let target = type === 'ing' ? 'end' : 'ing';
+                    let data = this[type][index]; //要走
+                    this[target].unshift(data);
+                    this[type].splice(index,1);
+                },
+                remove(index,type){
+                    this[type].splice(index,1);
+                },
+                clear(){
+                    this.ing = [];
+                    this.end = [];
+                }
+            }
+        })
+    </script>
+</body>
+</html>

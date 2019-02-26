@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .active{
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <div class="title">
+                <button v-for="(item,i) in tablecont" @click="index=i" :class="{active:i===index}">{{item.title}}</button>
+            </div>
+            <div class="cont">{{tablecont[index].cont}}</div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                tablecont:[{
+                    title:'今天',
+                    cont:'周五'
+                },{
+                    title:'明天',
+                    cont:'周六'
+                },{
+                    title:'后天',
+                    cont:'周日'
+                }],
+                index:0
+            }
+        })
+    </script>
+</body>
+</html>

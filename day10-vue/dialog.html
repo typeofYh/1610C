@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+        <div id="dialog" :style="styleobj"></div> 
+        <div>
+            <button v-for="(val) in showType"
+            @click="styleobj.push(val.css)">{{val.title}}</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                styleobj:[{
+                    width:"100px",
+                    height:"100px",
+                    background:'red'
+                },{
+                    position:'absolute',
+                    top:'50%',
+                    left:'50%'
+                },{
+                    transform:'translate(-50%,-50%)',
+                    transition:'all 0.8s'
+                }],
+                showType:[{
+                    title:"从下到上",
+                    css:{
+                        transform:'translate(-50%,-500%)'
+                    }
+                },{
+                    title:'淡出',
+                    css:{
+                        opacity:'0'
+                    }
+                },{
+                    title:'从右到左',
+                    css:{
+                        transform:'translate(-500%,-50%)'
+                    }
+                }]
+            }
+        })
+    </script>
+</body>
+</html>

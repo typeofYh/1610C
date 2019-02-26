@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <mytitle></mytitle> -->
+        <my-title></my-title>
+        <my-title></my-title>
+        <ul>
+            <my-li v-for="val in 3" :key="val"></my-li>
+        </ul>
+        <my-div v-if="open"></my-div> <button @click="open = !open">show</button>
+    </div>
+    <div id="wrap">
+        <my-title />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('myTitle',{
+            template:'<h2>{{title}}</h2>',
+            data(){
+                return {
+                    title:'hello'
+                }
+            }
+        })
+        new Vue({
+            el:'#app',
+            data:{
+                open:false
+            },
+            components:{
+                myLi:{
+                    template:`<li style="">
+                            {{count}} 
+                            <button @click="count++">点击</button>
+                        </li>`,
+                    data(){
+                        return{
+                            count:10
+                        }
+                    }
+                },
+                myDiv:{
+                    template:`
+                        <div><my-span /></div>
+                    `,
+                    data(){
+                        return{
+
+                        }
+                    },
+                    components:{
+                        'my-span':{
+                            template:`<span>hello</span>`
+                        }
+                    },
+                    created(){
+                        console.log('created');
+                    },
+                    beforeDestroy(){
+                        console.log('before');
+                    },
+                    destroyed(){
+                        console.log('destory');
+                    }
+                }
+            }
+        })
+
+        new Vue({
+            el:'#wrap'
+        })
+
+        
+    </script>        
+</body>
+</html>

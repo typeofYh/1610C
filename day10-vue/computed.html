@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{name}}</p>
+        <p>{{reverse()}}</p>
+        <p>{{reverseString}}</p>
+        <p>{{classinfo}}</p>
+        <p>{{urlinfo}}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                name:'王璐伟',
+                class:{
+                    name:'1610C',
+                    num:40
+                },
+                url:{
+                    name:'百度',
+                    address:'http://www.baidu.com'
+                }
+            },
+            methods:{
+                reverse(){
+                    return this.name.split('').reverse().join('')
+                }
+            },
+            //计算属性 计算属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算
+            computed:{ 
+                reverseString(){  //getter
+                    return this.name.split('').reverse().join('')
+                },
+                classinfo(){  //getter
+                    return this.class.name+this.class.num;
+                },
+                urlinfo:{
+                    get(){
+                        return this.url.name+'-'+this.url.address;
+                    },
+                    set(val){
+                        let [name,address] = val.split(/-/);
+                        this.url.name = name;
+                        this.url.address = address;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

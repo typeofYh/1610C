@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-for="item in data">
+            <h2 v-on:click="item.open = !item.open">{{item.title}} <span>{{item.price}}</span></h2>
+            <div v-show="item.open">
+                <div v-for="val in item.cont">
+                    <h3>{{val.date}}</h3>
+                    <p v-for="v in val.list">
+                        {{v.title}} <b>{{v.price}}</b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./mock/data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data,
+            created(){
+                this.data.forEach(item=>{
+                     item.price = item.cont.map(val => val.list.reduce((p,n)=>p+n.price,0)).reduce((p,n)=>p+n);
+                    //  item.open = false
+                    this.$set(item,'open',false);
+                })
+            }
+        })
+    
+    </script>
+</body>
+</html>

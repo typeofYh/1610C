@@ -1,0 +1,10 @@
+*{
+    padding:0;
+    margin: 0;
+    list-style:none;
+    box-sizing: border-box;
+}
+body,html{
+    width: 100%;
+    height: 100%;
+}

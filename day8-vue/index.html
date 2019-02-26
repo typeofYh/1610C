@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .wrap{
+            border:1px solid #000;
+        }
+        .parent{
+            width: 400px;
+            height: 400px;
+        }
+        .children{
+            width: 200px;
+            height: 200px;
+        }
+        .min{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>{{title+'收拾干净'}}</h2>
+        <button @click="open=!open">显示隐藏</button>
+        <div class="box" v-show="open"></div>
+        <a href="http://www.baidu.com" @click.prevent>前往百度</a>
+
+        <div class="parent wrap" @click.self="func('大')">
+            最大
+            <div class="children wrap" @click.self="func('中')">
+                中等
+                <div class="min wrap" @click.self="func('小')">
+                    最小
+                </div>
+            </div>
+        </div>
+
+        <input type="text" @keyup.enter="func('回车')"> 
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                title:'今天来检查',
+                open:false
+            },
+            methods:{
+                func(tit){
+                    console.log(tit);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

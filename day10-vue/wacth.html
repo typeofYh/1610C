@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{count}}</p>
+        <button @click="btn">+</button>
+
+        <input type="text" placeholder="请输入米" v-model="mi">
+        <input type="text" placeholder="请输入千米" v-model="qianmi">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                count:10,
+                mi:'',
+                qianmi:""
+            },
+            methods:{
+                btn(){
+                    this.count++;
+                }
+            },
+            //监听属性
+            watch:{
+                count(val,oldval){
+                    console.log('当前—'+val,'之前的-'+oldval)
+                },
+                mi(val){
+                    this.qianmi = val/1000
+                },
+                qianmi(val){
+                    this.mi = val*1000
+                }
+            }
+        })
+
+        // vm.$watch('count',(val,oldval)=>{
+        //     console.log('当前—'+val,'之前的-'+oldval)
+        // })
+    </script>
+</body>
+</html>

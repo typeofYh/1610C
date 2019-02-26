@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>{{classname}}</h2>
+        <ul>
+            <li v-for="(val,index) in urls">
+                {{index}}:<a v-bind:href="val.src" v-html="'<b>'+val.title+'</b>'">{{val.title}}</a>
+                <p>
+                    <span v-for="(values,key) of val">{{key}}:{{values}}</span>
+                </p>
+            </li>
+        </ul>
+
+        <!-- <p v-for="val in 10">{{val}}</p>
+        <p v-for="val in classname">{{val}}</p> -->
+
+        <div>
+            <!-- <input type="text" placeholder="请输入姓名" 
+            :value="nametext"
+            @input="nametext=$event.target.value"> -->
+            <input type="text" placeholder="请输入姓名" v-model="nametext">
+            <select v-model="sex">
+                <option value="女">女</option>
+                <option value="男">男</option>
+            </select>
+            <button @click="submit($event,'string')">submit</button>
+        </div>
+
+        <div>
+            <input type="text" placeholder="请输入金额" v-model="price">
+            <button @click="leave">提交</button>
+            <p v-if="price>=1 && price<=100">vip</p>
+            <p v-else-if="price>100 && price<=200">vvip</p>
+            <p v-else>111</p>
+        </div>
+        <p v-once>{{classname}}</p>
+    </div>
+<script type="text/javascript" src="app-f912f8e591e505b89a97.js"></script></body>
+</html>
