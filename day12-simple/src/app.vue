@@ -1,69 +1,43 @@
 <template>
-    <div id="wrap">
-        <header>{{title}}</header>
-        <main>
-            <div>
-                <message v-for="item in list"
-                :key="item.id"
-                :title="item.title"
-                :name="item.name"
-                :img="item.img"
-                ></message>
-            </div>
-        </main>
-        <myFooter v-on:addmessage="addmessage"></myFooter>
+    <div id="app">
+        <!-- <ul>
+            <li>
+                <h2>插槽</h2>
+                <ul>
+                    <li>
+                        <h2>插槽内容</h2>
+                    </li>
+                     <li>
+                        <h2>作用域插槽</h2>
+                        <ul>
+                            <li>
+                                <h2>独占默认插槽的缩写语法</h2>
+                            </li>
+                            <li>
+                                <h2>解构插槽-Prop</h2>
+                                <ul></ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><h2>自定义事件</h2></li>
+        </ul> -->
+        <my-ul :list="list"></my-ul>
     </div>
 </template>
 <script>
-import message from './components/message';
-import myFooter from './components/myfooter'
-import axios from 'axios';
+import list from './mock/data';
+import myUl from './components/myul';
 export default {
-    props:['title'],
     data(){
-        return{
-            pageid:0,
-            list:[]
-        }
-    },
-    created(){
-        this.getData();
-    },
-    methods:{
-        getData(){
-            axios.get(`/api/list?pageid=${this.pageid}`).then(res=>{
-                this.list = res.data.list;
-            })
-        },
-        addmessage(obj){
-            this.list.unshift(obj);
+        return {
+            list 
         }
     },
     components:{
-        message,
-        myFooter
+        myUl
     }
 }
 </script>
-<style scoped>
-    #wrap{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    header,footer{
-        width: 100%;
-        height: 45px;
-        line-height: 45px;
-        text-align: center;
-        color:#fff;
-        font-size: 16px;
-        background: skyblue
-    }
-    main{
-        flex:1;
-        overflow: auto;
-    }
-</style>
 

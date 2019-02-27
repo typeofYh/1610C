@@ -1,28 +1,27 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
-  </div>
+    <div id="app">
+        <h1>app</h1>
+        <parent :title="title"></parent>
+    </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld'
-
+import parent from '@/components/parent';
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    data(){
+        return {
+            title:'1610A'
+        }
+    },
+    components:{
+        parent
+    },
+    created(){
+        this.$bus.classname = '1610C';
+        console.log(this.$parent === this.$root);
+        this.$bus.$on('changeclassname',()=>{
+            this.title = '显示班级'
+        })
+    }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
