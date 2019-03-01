@@ -61,11 +61,15 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test:/\.(ttf|woff|svg|eot)$/,
+        loader:'url-loader'
       }
     ]
   },
@@ -80,6 +84,38 @@ module.exports = {
     noInfo: true,
     overlay: true,
     before(app){
+      let navdata = [{
+        id:0,
+        title:'心动的鱼套餐'
+      },{
+        id:1,
+        title:'心动的鱼'
+      },{
+        id:2,
+        title:'好吃的凉菜'
+      }];
+      
+      app.get('/elm/navlist',(req,res)=>{
+          res.send(navdata)
+      });
+      app.get('/elm/content',(req,res)=>{
+         let {id} = req.query;
+         let cont = Mock.mock({
+          'cont|10-15':[{
+             'price|+1':(id+1)*10,
+             'title':'商品标题',
+             'info':'@cword',
+             'img':'@image',
+             'sale|30-100':1,
+             'id|+1':id*15
+          }]
+        })
+         res.send({
+            navtitle:navdata[id].title,
+            ...cont
+         })
+      })
+
       app.get('/api/list',(req,res,next)=>{
           let {pageid=0} = req.query; //1
           res.send(Mock.mock({

@@ -1,43 +1,47 @@
 <template>
     <div id="app">
-        <!-- <ul>
-            <li>
-                <h2>插槽</h2>
-                <ul>
-                    <li>
-                        <h2>插槽内容</h2>
-                    </li>
-                     <li>
-                        <h2>作用域插槽</h2>
-                        <ul>
-                            <li>
-                                <h2>独占默认插槽的缩写语法</h2>
-                            </li>
-                            <li>
-                                <h2>解构插槽-Prop</h2>
-                                <ul></ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li><h2>自定义事件</h2></li>
-        </ul> -->
-        <my-ul :list="list"></my-ul>
+        <header>
+            <span>菜单</span>
+            <span>评价</span>
+            <span>商家</span>
+        </header>
+        <main>
+            <Menu />
+        </main>
     </div>
 </template>
 <script>
-import list from './mock/data';
-import myUl from './components/myul';
+import Menu from './views/menu.vue'
 export default {
-    data(){
-        return {
-            list 
-        }
-    },
     components:{
-        myUl
+        Menu
     }
 }
 </script>
+<style lang="scss">
+*{
+    padding:0;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+body,html,#app{
+    width: 100%;
+    height: 100%;
+}
+#app{
+    display: flex;
+    flex-direction: column;
+}
+header{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ccc;
+}
+main{
+    flex:1;
+    overflow:hidden;
+}
+</style>
 

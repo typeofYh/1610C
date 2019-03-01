@@ -1,0 +1,21 @@
+export default [
+    {
+        type:"返回顶部",
+        tip:'返回顶部',
+        number:'-',
+        icon:'icon-icon_down',
+        id:0
+    },{
+        type:"二维码",
+        tip:'图片地址...',
+        number:'-',
+        icon:'icon-icon_QRcode',
+        id:1
+    },{
+        type:"QQ",
+        tip:'qq号码',
+        number:'121332322',
+        icon:'icon-icon_qq',
+        id:2
+    }
+]
