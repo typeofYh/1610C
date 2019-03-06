@@ -13,7 +13,7 @@ export default {
     data(){
         return {
             falg:false,
-            count:0
+            // count:0
         }
     },
     watch:{

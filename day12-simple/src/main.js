@@ -1,18 +1,10 @@
 import Vue from 'vue';
 import App from './app';
-import axios from 'axios';
-let ajax = axios.create({
-    // type:''
-})
-//响应
-ajax.interceptors.response.use(res=>{
-    return res.data;
-})
-Vue.prototype.$ajax = ajax;
-Vue.prototype.$bus = new Vue();
-
+import router from './router'; //路由配置对象
 new Vue({
     el:'#app',
-    render:h=>h(App)
+    router,
+    render:createElement=>createElement(App)
 })
 
+//

@@ -44,15 +44,18 @@ export default {
             contentdata:[],
             i:0,
             sumcount:0,
-            sumprice:0
+            sumprice:0,
+            contentData:{} //0 1 2
         }
     },
     components:{
         DlList
     },
     created(){
+        //获取导航数据
         this.$ajax.get('/elm/navlist').then(res=>{
             this.navdata = res;
+            //默认请求第一个列表数据
             this.getcontentdata(this.navdata[this.i].id);
         });
         //进入页面会执行这个操作
@@ -66,8 +69,10 @@ export default {
             //判断数组中有没有  根据商品标识来判断 id
             let {id} = res;
             let index = this.localdata.findIndex(item=>item.id===id);
+            //存在替换
             if(index != -1){
                 this.localdata.splice(index,1,res);
+                //不存在添加
             }else{
                 this.localdata.push(res);
             };
@@ -78,16 +83,21 @@ export default {
     },
     methods:{
         getcontentdata(id){
-            this.$ajax.get('/elm/content?id='+id).then(res=>{
-                this.title = res.navtitle;
-                res.cont.forEach(item=>{
-                    let obj = this.localdata.find(val=>item.id===val.id);
-                    item.count = obj ? obj.count : 0;
-                    // this.$set(item,'count',obj ? obj.count : 0)
+            if(this.contentData[id]){
+                this.contentdata = this.contentData[id];
+            }else{
+                this.$ajax.get('/elm/content?id='+id).then(res=>{
+                    this.title = res.navtitle;
+                    res.cont.forEach(item=>{
+                        let obj = this.localdata.find(val=>item.id===val.id);
+                        item.count = obj ? obj.count : 0;
+                    })
+                    this.contentData[id] = res.cont;
+                    this.contentdata = res.cont;
+                    // console.log(this.contentdata);
                 })
-                this.contentdata = res.cont;
-                // console.log(this.contentdata);
-            })
+            }
+            console.log(this.contentData);
         },
         changenav(i){
             this.i = i;
